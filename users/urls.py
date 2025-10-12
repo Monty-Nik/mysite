@@ -1,11 +1,13 @@
-from django.urls import path
-from . import views
+from django.contrib import admin
+from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
-    # Главная страница профиля пользователя
-    path('', views.profile_view, name='profile'),
-    # Редактирование профиля
-    path('edit/', views.profile_edit_view, name='profile_edit'),
-    # Удаление профиля (испpip install django==4.2.0ользуем Django Auth для удаления)
-    # path('delete/', views.profile_delete_view, name='profile_delete'),
+    path('admin/', admin.site.urls),
+    path('', include('polls.urls', namespace='polls')),
+    path('users/', include('users.urls', namespace='users')),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,0 +1,28 @@
+{% extends 'polls/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Создать новый опрос</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="{{ form.title.id_for_label }}" class="form-label">Заголовок</label>
+            {{ form.title }}
+        </div>
+        <div class="mb-3">
+            <label for="{{ form.short_description.id_for_label }}" class="form-label">Краткое описание</label>
+            {{ form.short_description }}
+        </div>
+        <div class="mb-3">
+            <label for="{{ form.full_description.id_for_label }}" class="form-label">Полное описание</label>
+            {{ form.full_description }}
+        </div>
+        <div class="mb-3">
+            <label for="{{ form.image.id_for_label }}" class="form-label">Изображение</label>
+            {{ form.image }}
+        </div>
+        <button type="submit" class="btn btn-primary">Создать опрос</button>
+        <a href="{% url 'index' %}" class="btn btn-secondary">Отмена</a>
+    </form>
+</div>
+{% endblock %}

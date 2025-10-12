@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
-
+import os
 # Использование кастомной модели пользователя. (Вопрос она требуется или же можно без нее?)
 INSTALLED_APPS = [
     'users.apps.UsersConfig',
@@ -38,7 +38,7 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-INSTALLED_APPS = [
+INSTALLED_APPS += [
     'polls.apps.PollsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -132,3 +132,9 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+os.makedirs(os.path.join(MEDIA_ROOT, 'avatars'), exist_ok=True)
+os.makedirs(os.path.join(MEDIA_ROOT, 'question_images'), exist_ok=True)

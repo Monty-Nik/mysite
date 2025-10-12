@@ -1,0 +1,35 @@
+{% extends 'polls/base.html' %}
+
+{% block title %}Удаление профиля{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="text-danger">Удаление профиля</h4>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-danger">
+                    <h5>Внимание!</h5>
+                    <p>Вы собираетесь удалить свой профиль. Это действие нельзя отменить.</p>
+                    <p>Будут удалены:</p>
+                    <ul>
+                        <li>Ваш профиль пользователя</li>
+                        <li>Все созданные вами опросы</li>
+                        <li>История ваших голосований</li>
+                    </ul>
+                </div>
+                
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-danger">Да, удалить мой профиль</button>
+                        <a href="{% url 'users:profile_view' %}" class="btn btn-secondary">Отмена</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
