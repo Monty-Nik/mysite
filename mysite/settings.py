@@ -10,6 +10,14 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+
+# Использование кастомной модели пользователя. (Вопрос она требуется или же можно без нее?)
+INSTALLED_APPS = [
+    'users.apps.UsersConfig',
+    'polls.apps.PollsConfig',
+]
+
+
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.

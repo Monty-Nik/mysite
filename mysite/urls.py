@@ -20,3 +20,22 @@ urlpatterns = [
     path('polls/', include('polls.urls')),
     path('admin/', admin.site.urls),
 ]
+
+from django.contrib import admin
+from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    # Маршруты для профилей (регистрация, вход/выход, редактирование)
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('profile/', include('users.urls')),  # Подключаем наши users URL
+
+    # Маршруты для опросов (главная, детали, голосование, создание)
+    path('', include('polls.urls')),  # Делаем polls главной страницей
+]
+
+# Важно для обработки медиафайлов (аватаров, изображений постов)
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

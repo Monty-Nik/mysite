@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+    <h2>{{ post.title }}</h2>
+    
+    {% if post.post_image %}
+        <img src="{{ post.post_image.url }}" alt="Изображение поста" style="max-width: 600px;">
+    {% endif %}
+
+    <p>{{ post.full_description|linebreaksbr }}</p>
+    <small>Опубликовано: {{ post.creation_date|date:"d M Y" }} | Истекает: {{ post.expiration_date|date:"d M Y H:i" }}</small>
+    <hr>
+
+    {% if user.is_authenticated %}
+        {% if already_voted %}
+            <h3>Результаты голосования:</h3>
+            {% for option, percentage in results.items %}
+                <p>
+                    {{ option.option_text }}: 
+                    <strong>{{ percentage|floatformat:1 }}%</strong> 
+                    ({{ option.vote_count }} голосов)
+                </p>
+            {% endfor %}
+            <p>Общее число голосов: {{ total_votes }}</p>
+
+        {% else %}
+            <h3>Проголосуйте:</h3>
+            <form method="POST">
+                {% csrf_token %}
+                {{ vote_form.as_p }}
+                <button type="submit">Проголосовать</button>
+            </form>
+        {% endif %}
+    {% else %}
+        <p>Для голосования <a href="{% url 'login' %}">войдите</a> или <a href="{% url 'register' %}">зарегистрируйтесь</a>.</p>
+    {% endif %}
+    
+{% endblock %}
