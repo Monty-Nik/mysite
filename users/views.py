@@ -8,6 +8,27 @@ from .forms import UserProfileForm, CustomUserCreationForm
 from polls.models import Question  # Импортируем модель Question из приложения polls
 
 
+@login_required
+def profile_edit(request):
+    """Редактирование профиля пользователя"""
+    try:
+        profile = request.user.userprofile
+    except UserProfile.DoesNotExist:
+        # Если профиль не существует, создаем его
+        profile = UserProfile.objects.create(user=request.user)
+
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Профиль успешно обновлен!")
+            return redirect('users:profile_view')
+        else:
+            messages.error(request, "Пожалуйста, исправьте ошибки в форме.")
+    else:
+        form = UserProfileForm(instance=profile)
+
+    return render(request, 'users/profile_edit.html', {'form': form})
 def user_register(request):
     """Регистрация нового пользователя"""
     if request.method == 'POST':

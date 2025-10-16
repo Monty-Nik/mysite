@@ -8,6 +8,8 @@ from .models import Question, Choice, UserProfile, Vote
 from .forms import UserProfileForm, QuestionForm, CustomUserCreationForm
 from users.models import UserProfile
 
+
+
 def index(request):
     """Главная страница с активными вопросами"""
     now = timezone.now()

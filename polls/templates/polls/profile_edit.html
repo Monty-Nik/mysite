@@ -5,29 +5,55 @@
     <h2>Редактирование профиля</h2>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
+
+        <!-- Поля пользователя -->
+        <div class="mb-3">
+            <label for="{{ form.username.id_for_label }}" class="form-label">Имя пользователя *</label>
+            {{ form.username }}
+            {% if form.username.errors %}
+                <div class="text-danger">{{ form.username.errors }}</div>
+            {% endif %}
+        </div>
+
         <div class="mb-3">
             <label for="{{ form.first_name.id_for_label }}" class="form-label">Имя</label>
             {{ form.first_name }}
         </div>
+
         <div class="mb-3">
             <label for="{{ form.last_name.id_for_label }}" class="form-label">Фамилия</label>
             {{ form.last_name }}
         </div>
+
         <div class="mb-3">
-            <label for="{{ form.email.id_for_label }}" class="form-label">Email</label>
+            <label for="{{ form.email.id_for_label }}" class="form-label">Email *</label>
             {{ form.email }}
+            {% if form.email.errors %}
+                <div class="text-danger">{{ form.email.errors }}</div>
+            {% endif %}
         </div>
+
+        <!-- Поля профиля -->
         <div class="mb-3">
             <label for="{{ form.avatar.id_for_label }}" class="form-label">Аватар *</label>
             {{ form.avatar }}
             {% if form.avatar.errors %}
                 <div class="text-danger">{{ form.avatar.errors }}</div>
             {% endif %}
+            {% if form.instance.avatar %}
+                <div class="mt-2">
+                    <small>Текущий аватар:</small>
+                    <img src="{{ form.instance.avatar.url }}" alt="Текущий аватар" width="50" class="ms-2 rounded">
+                </div>
+            {% endif %}
         </div>
+
         <div class="mb-3">
             <label for="{{ form.bio.id_for_label }}" class="form-label">О себе</label>
             {{ form.bio }}
+            <div class="form-text">Расскажите немного о себе</div>
         </div>
+
         <button type="submit" class="btn btn-primary">Сохранить</button>
         <a href="{% url 'profile' %}" class="btn btn-secondary">Отмена</a>
     </form>
