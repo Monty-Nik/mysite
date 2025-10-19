@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create New Question</title>
+</head>
+<body>
+    <h1>Create New Poll Question</h1>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div>
+            <label for="{{ form.question_text.id_for_label }}">Question Text:</label>
+            {{ form.question_text }}
+            {{ form.question_text.errors }}
+        </div>
+
+        <div>
+            <label for="{{ form.description.id_for_label }}">Description:</label>
+            {{ form.description }}
+            {{ form.description.errors }}
+        </div>
+
+        <div>
+            <label for="{{ form.end_date.id_for_label }}">End Date:</label>
+            {{ form.end_date }}
+            {{ form.end_date.errors }}
+        </div>
+
+        <div>
+            <label for="{{ form.image.id_for_label }}">Image:</label>
+            {{ form.image }}
+            {{ form.image.errors }}
+        </div>
+
+        <button type="submit">Create Question</button>
+    </form>
+
+    <a href="{% url 'polls:index' %}">Back to Home</a>
+</body>
+</html>
